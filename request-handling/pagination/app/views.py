@@ -41,8 +41,3 @@ def bus_stations(request):
         'next_page_url': query_arg_next,
     })
 
-
-# params = urllib.parse.urlencode({'page': page})
-# url = "bus_stations/?%s" % params
-# with urllib.request.urlopen(url) as f:
-#     print(f.read().decode('utf-8'))
