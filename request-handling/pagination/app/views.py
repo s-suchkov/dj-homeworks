@@ -6,6 +6,8 @@ import urllib.parse
 from urllib.parse import urlencode
 from app.settings import BUS_STATION_CSV
 import csv
+from django.core.paginator import Paginator
+
 def index(request):
     return redirect(reverse(bus_stations))
 
@@ -22,20 +24,22 @@ def bus_stations(request):
         reader = csv.DictReader(csvfile)
         for line in reader:
             bus_station.append({'Name' : line['Name'], 'Street' : line['Street'], 'District' : line['District']})
-    if page:
-        x = 0 + 10 * (int(page) - 1)
-        y = 9 + 10 * (int(page) - 1)
-    query_arg_next = {'page': int(page) + 1}
-    query_arg_next = f'bus_stations?{urllib.parse.urlencode(query_arg_next)}'
-    if int(page) == 1:
-        query_arg_prev = None
+    p = Paginator(bus_station, 10)
+    object = p.get_page(page)
+    if object.has_next():
+        query_arg_next = {'page': object.next_page_number()}
+        query_arg_next = f'bus_stations?{urllib.parse.urlencode(query_arg_next)}'
     else:
-        query_arg_prev = {'page': int(page) - 1}
+        query_arg_next = None
+    if object.has_previous():
+        query_arg_prev = {'page': object.previous_page_number()}
         query_arg_prev = f'bus_stations?{urllib.parse.urlencode(query_arg_prev)}'
-    bus_list= bus_station[x:y]
+    else:
+        query_arg_prev = None
+
 
     return render_to_response('index.html', context={
-        'bus_stations': bus_list,
+        'bus_stations': object,
         'current_page': page,
         'prev_page_url': query_arg_prev,
         'next_page_url': query_arg_next,
