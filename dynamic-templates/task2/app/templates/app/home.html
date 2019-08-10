@@ -13,6 +13,7 @@
   </head>
 
   <body>
+  {% block content %}
     <nav class="row">
       <div class="nav-wrapper col s12">
         <a href="{% url 'home' %}" class="brand-logo">
@@ -31,6 +32,6 @@
         <img src='{% static "steve.jpg" %}' alt="Apple">
       </div>
     </div>
-
+  {% endblock %}
   </body>
 </html>
