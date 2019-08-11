@@ -1,5 +1,15 @@
-{% extends 'app/home.html' %}
+{% extends 'app/base.html' %}
 {% load static %}
-  {% block content %}
-    {% include 'app/base.html' %}
-  {% endblock %}
+
+          {% block nav %}
+          <li class="active"><a href="{% url 'examples' %}">Примеры</a></li>
+          <li><a href="{% url 'contacts' %}">Контакты</a></li>
+          <li><a href="{% url 'about' %}">О проекте</a></li>
+          {% endblock %}
+
+    {% block content %}
+        <h1 class="col s12">Каталог компьютеров Apple</h1>
+        {% for item in items %}
+          {% include 'app/computer.html' %}
+        {% endfor %}
+    {% endblock %}}

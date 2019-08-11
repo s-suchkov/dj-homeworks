@@ -19,7 +19,7 @@ def format_date(value):
 
 @register.filter
 def score_filter(value):
-    if int(value) < -5:
+    if int(value) <= -5:
         return 'Все плохо'
     elif int(value) > -5 and int(value) <=5:
         return 'Нейтрально'
@@ -42,9 +42,24 @@ def format_selftext(value, count):
         return ''
     else:
         value = value.split(' ')
-        start = ' '.join(value[0:count])
-        value.reverse()
-        end = ' '.join(value[0:count])
-        return f'{start} ... {end}'
-
+        if len(value) > 2 * count:
+            start = ' '.join(value[0:count])
+            value.reverse()
+            end = value[0:count]
+            end.reverse()
+            end = ' '.join(end)
+            return f'{start} ... {end}'
+        elif len(value) == 1:
+            return f'{value[0]}'
+        else:
+            count = int(len(value) / 2)
+            start = ' '.join(value[0:count])
+            value.reverse()
+            end = value[0:count]
+            end.reverse()
+            end = ' '.join(end)
+            if count == 1:
+                return f'{start} {end}'
+            else:
+                return f'{start} ... {end}'
 
