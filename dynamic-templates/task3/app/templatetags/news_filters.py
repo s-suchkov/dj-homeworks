@@ -44,9 +44,7 @@ def format_selftext(value, count):
         value = value.split(' ')
         if len(value) > 2 * count:
             start = ' '.join(value[0:count])
-            value.reverse()
-            end = value[0:count]
-            end.reverse()
+            end = value[-count:]
             end = ' '.join(end)
             return f'{start} ... {end}'
         elif len(value) == 1:
@@ -54,12 +52,11 @@ def format_selftext(value, count):
         else:
             count = int(len(value) / 2)
             start = ' '.join(value[0:count])
-            value.reverse()
-            end = value[0:count]
-            end.reverse()
+            end = value[-count:]
             end = ' '.join(end)
             if count == 1:
                 return f'{start} {end}'
             else:
                 return f'{start} ... {end}'
+
 
