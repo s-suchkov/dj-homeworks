@@ -15,28 +15,18 @@ def books_view(request):
 def date_books(request, pub_date):
     template = 'books/book.html'
     book = Book.objects.order_by('pub_date')
-    list_date = []
-    k = Book.objects.order_by('pub_date').values('pub_date')
-    for list in k:
-        list_date.append(datetime.datetime.strftime(list['pub_date'], '%Y-%m-%d'))
-    ind = list_date.index(pub_date)
     books = book.get(pub_date=pub_date)
-    prev = 1
-    next =1
-    if ind == 0:
-        prev = list_date[len(list_date)-1]
-        next = list_date[ind + 1]
-    elif ind == len(list_date)-1:
-        prev = list_date[ind - 1]
-        next = list_date[0]
-    else:
-        prev = list_date[ind-1]
-        next = list_date[ind+1]
-
+    date = Book.objects.order_by('pub_date')
+    date_next = date.filter(pub_date__gt=pub_date).first()
+    if date_next == None:
+        date_next = date.filter(pub_date__lt=pub_date).first()
+    date_prev = date.filter(pub_date__lt=pub_date).last()
+    if date_prev == None:
+        date_prev = date.filter(pub_date__gt=pub_date).last()
     return render(request, template, context = {
         'book': books,
-        'prev': prev,
-        'next': next
+        'prev': date_prev.pub_date,
+        'next': date_next.pub_date
     })
 
 
