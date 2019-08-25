@@ -7,5 +7,46 @@
         <div class="header">
             <h1>Сравнение телефонов</h1>
         </div>
+        <div class = 'row'>
+            <div class = 'col'>
+                <p>Производитель</p>
+                <p>Цена</p>
+                <p>Корпус</p>
+                <p>lte</p>
+                <p>операционная система</p>
+                <p>память</p>
+                <p>матрица камеры</p>
+                <p>батарея</p>
+                <p>диктофон</p>
+                <p>карта памяти</p>
+            </div>
+            {% for phone  in phones %}
+            <div class='col'>
+                <p>{{phone.common.name}}</p>
+                <p>{{phone.common.price}}</p>
+                <p>{{phone.common.body}}</p>
+                <p>{{phone.common.lte}}</p>
+                <p>{{phone.common.operating_system}}</p>
+                <p>{{phone.common.memory}}</p>
+                <p>{{phone.common.matrix_camera}}</p>
+                {% if phone.battery %}
+                <p>{{phone.battery}}</p>
+                {% else %}
+                <p>---</p>
+                {% endif%}
+                {% if phone.dictaphone %}
+                <p>{{phone.dictaphone}}</p>
+                {% else %}
+                <p>---</p>
+                {% endif%}
+                {% if phone.memory_card %}
+                <p>{{phone.memory_card}}</p>
+                {% else %}
+                <p>---</p>
+                {% endif%}
+
+            </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
