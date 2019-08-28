@@ -28,3 +28,6 @@ def calc_view(request):
             'form': form
         }
     return render(request, template, context)
+
+# form = CalcForm.objects.all()
+# print(form)

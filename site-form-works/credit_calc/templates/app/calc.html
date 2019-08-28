@@ -10,11 +10,17 @@
 </head>
 <body>
     <div class="left-margin width300">
+<<<<<<< HEAD
         <form action="" method="POST">{% csrf_token %}
+=======
+        <form action="" method="POST">
+            {% csrf_token %}
+>>>>>>> 1d5e2b53724f2c546c23280d801db2c6c3893931
             {% for field in form %}
             <p>{{ field.label_tag }}</p> {{ field }}
             {{ field.errors }}
             {% endfor %}
+            <br>
             <input type="submit" value="Подсчитать"/>
         </form>
     </div>

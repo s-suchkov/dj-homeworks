@@ -5,7 +5,11 @@ from django import forms
 
 class CalcForm(forms.Form):
     initial_fee = forms.IntegerField(label="Стоимость товара")
+<<<<<<< HEAD
     rate = forms.FloatField(label="Процентная ставка")
+=======
+    rate = forms.IntegerField(label="Процентная ставка")
+>>>>>>> 1d5e2b53724f2c546c23280d801db2c6c3893931
     months_count = forms.IntegerField(label="Срок кредита в месяцах")
 
     # def clean_initial_fee(self):
@@ -26,4 +30,8 @@ class CalcForm(forms.Form):
             raise forms.ValidationError("Процентная ставка не может быть отрицательной")
         if not months_count or months_count < 0:
             raise forms.ValidationError("Количество месяцев не может быть отрицательной")
+<<<<<<< HEAD
         return self.cleaned_data
+=======
+        return self.cleaned_data
+>>>>>>> 1d5e2b53724f2c546c23280d801db2c6c3893931
