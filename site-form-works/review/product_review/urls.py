@@ -1,5 +1,4 @@
 """product_review URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
 Examples:
@@ -18,11 +17,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from app.views import product_list_view, product_view
+from app.views import product_list_view, MyForm
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('product/<int:pk>/', product_view, name='product_detail'),
+    path('product/<int:pk>/', MyForm.as_view(), name='product_detail'),
     path('', product_list_view, name='main_page'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
