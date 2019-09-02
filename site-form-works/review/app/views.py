@@ -35,26 +35,32 @@ def product_list_view(request):
 class MyForm(View):
     form_class = ReviewForm
     template = 'app/product_detail.html'
-
     def get(self, request, pk):
+        id = request.session.get('id', [])
         product = get_object_or_404(Product, id=pk)
-
-        context = {
-            'form': self.form_class,
-            'product': product,
-            'reviews': product.review_set.all(),
-        }
+        if pk in id:
+            context = {
+                'product': product,
+                'reviews': product.review_set.all(),
+                'is_review_exist': True
+            }
+        else:
+            context = {
+                'form': self.form_class,
+                'product': product,
+                'reviews': product.review_set.all()
+            }
         return render(request, self.template, context)
 
     def post(self, request, pk):
-
+        id = request.session.get('id', [])
         form = self.form_class(request.POST)
         product = get_object_or_404(Product, id=pk)
-        id = []
+
         request.session['id'] = id
 
         if form.is_valid() and not(pk in request.session['id']):
-            print(not(pk in request.session['id']))
+
             reviews = product.review_set.create(text=form.cleaned_data['text'])
             request.session['text'] = form.cleaned_data['text']
             id.append(pk)
