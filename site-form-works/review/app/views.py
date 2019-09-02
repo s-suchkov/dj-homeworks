@@ -36,8 +36,14 @@ class MyForm(View):
     form_class = ReviewForm
     template = 'app/product_detail.html'
     def get(self, request, pk):
+<<<<<<< HEAD
         id = request.session.get('id', [])
         product = get_object_or_404(Product, id=pk)
+=======
+        id = []
+        product = get_object_or_404(Product, id=pk)
+        id.append(pk)
+>>>>>>> af7c86fa10ce440d261166bc35d4a45d46c7d220
         if pk in id:
             context = {
                 'product': product,
@@ -53,7 +59,11 @@ class MyForm(View):
         return render(request, self.template, context)
 
     def post(self, request, pk):
+<<<<<<< HEAD
         id = request.session.get('id', [])
+=======
+        id = []
+>>>>>>> af7c86fa10ce440d261166bc35d4a45d46c7d220
         form = self.form_class(request.POST)
         product = get_object_or_404(Product, id=pk)
 
