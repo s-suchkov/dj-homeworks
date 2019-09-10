@@ -31,7 +31,9 @@ def show_home(request):
         else:
             del request.session['player_id']
             del request.session['game_id']
-            info = PlayerGameInfo.objects.get(game__status=False)
+            info = PlayerGameInfo.objects.filter(game__status=True).get(author=False)
+            info.author = True
+            info.save()
         return render(
             request,
             'home.html',
