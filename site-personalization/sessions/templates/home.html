@@ -5,8 +5,23 @@
 
 {% block content %}
     <div class="container">
+        {% if info.player.name == 'author' %}
         <div class="header">
-            <h1>Игра "Угадай число"</h1>
+            <h1>Загаданное число {{info.game.number}}</h1>
+            {% if counter %}
+                 <p>Ваше число угадали с {{counter}} попыток</p>
+            {% endif %}
         </div>
+        {% else %}
+        <div class="header">
+            <p>Введите число</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="number" name="number">
+                <input type="submit" value="Проверить">
+            </form>
+            <p>{{hint}}</p>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}

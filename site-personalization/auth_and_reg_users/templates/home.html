@@ -4,9 +4,16 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
+    {% if request.user.is_authenticated%}
+        <p>Привет {{request.user.username}}</p>
+        <a href="/signup">Зарегистрировать нового пользователя</a><br>
+        <a href="/login">Авторизоваться под другим пользователем</a><br>
+        <a href="/logout">Выйти</a>
+    {%else%}
     <div class="container">
         <div class="header"></div>
             Привет, <b>гость</b>.<br>
             Пожалуйста, <a href="/signup">зарегистрируйся</a> или <a href="/login">авторизуйся</a>!
     </div>
+    {% endif%}
 {% endblock %}
