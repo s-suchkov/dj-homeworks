@@ -28,8 +28,8 @@ def table_view(request):
                 table.append(row)
 
         context = {
-            'columns': COLUMNS, 
-            'table': table, 
+            'columns': COLUMNS,
+            'table': table,
             'csv_file': CSV_FILENAME
         }
         result = render(request, template, context)
